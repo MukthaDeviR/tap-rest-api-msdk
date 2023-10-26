@@ -20,6 +20,8 @@ def flatten_json(obj: dict, except_keys: Optional[list] = None) -> dict:
 
     """
     out = {}
+    print("except keysssssssssssssssssssssssssssssssssssssssssssssss")
+    print(except_keys)
     if not except_keys:
         except_keys = []
 
@@ -33,6 +35,8 @@ def flatten_json(obj: dict, except_keys: Optional[list] = None) -> dict:
             Translation table.
 
         """
+        print("ssssssssssssssssssssssssssssssssssssssssssssss")
+        print(s)
         translation_table = s.maketrans("-.", "__")
         return s.translate(translation_table)
 
@@ -46,16 +50,27 @@ def flatten_json(obj: dict, except_keys: Optional[list] = None) -> dict:
             name: the prefix for the exception_keys
 
         """
+        print("objecttttttttttttttttttttttttttttttttttttttttttttttt")
+        print(o)
+        print("exceptionnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn")
+        print(exception_keys)
         if type(o) is dict:
             for k in o:
                 # the key is in the list of keys to skip, convert to json string
+                print("11111111111111111111111111111111111111111111111111111111")
+                print(k)
                 if name + k in exception_keys:
+                    print("2222222222222222222222222222222222222222222222222222222")
+                    print(name + k)
                     out[t(name + k)] = json.dumps(o[k])
                 else:
+                    print("33333333333333333333333333333333333333333333333333333333")
+                    print(k)
                     flatten(o[k], exception_keys, name + k + "_")
 
         # if the object is an array, convert to a json string
         elif type(o) is list:
+            print(o)
             out[t(name[:-1])] = json.dumps(o)
 
         # otherwise, translate the key to be database friendly
